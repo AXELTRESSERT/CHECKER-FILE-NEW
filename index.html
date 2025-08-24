@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .progress-container {
+            margin-top: 20px;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #4CAF50;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        .progress-text {
+            text-align: center;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .copy-btn {
+            background-color: #008CBA;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CHECKER VALID ACCOUNT</h1>
+        
+        <div class="input-group">
+            <label>PASSWORD? BUY SAMA MEGI DLU</label>
+            <input type="text" id="EMAIL" placeholder="EMAIL">
+            <input type="text" id="password" placeholder="PASSWORD" style="margin-top: 5px;">
+        </div>
+        
+        <div class="input-group">
+            <input type="text" id="nama" placeholder="Isi Nama">
+            <button onclick="checkAccount()">CEK AKUN</button>
+        </div>
+        
+        <div id="result" class="result-box" style="display: none;">
+            <div>EMAIL:PASSWORD: <span id="email-pass"></span></div>
+            <div>STATUS: <span id="status">VALID</span></div>
+            <div>V2L: <span id="v2l-status"></span></div>
+            <div>SKIN: <span id="skin"></span></div>
+            <div>OWNER: <span id="owner"></span></div>
+            <div>VERIFIKASI PERANGKAT: <span id="verifikasi"></span></div>
+            <button class="copy-btn" onclick="copyResult()">SALIN</button>
+        </div>
+        
+        <div class="tools-section" style="margin-top: 30px;">
+            <h2>TOOLS JEBOL V2L</h2>
+            <div class="input-group">
+                <input type="text" id="v2l-account" placeholder="EMAIL:PW => =>">
+                <button onclick="jebolV2L()">JEBOl V2L SEKARANG</button>
+            </div>
+            
+            <div id="progress-container" class="progress-container" style="display: none;">
+                <div class="progress-text" id="progress-text">PROSES BANG</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+            
+            <div id="v2l-result" class="result-box" style="display: none;">
+                <div>AKUN STATUS: <span id="akun-status">VALID</span></div>
+                <div>V2L: <span id="v2l-result-status">OFF</span></div>
+                <div>OWNER: <span id="owner-result"></span></div>
+                <div>SKIN: <span id="skin-result"></span></div>
+                <div>SQUAD: <span id="squad">UNKNOWN</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkAccount() {
+            const nama = document.getElementById('nama').value;
+            if (!nama) {
+                alert('ISI NAMA DLU BANG');
+                return;
+            }
+            
+            const username = document.getElementById('username').value || 'FILE';
+            const password = document.getElementById('password').value || 'PREMIUM';
+            
+            document.getElementById('email-pass').textContent = `${username}:${password}`;
+            
+            // Generate random values
+            document.getElementById('v2l-status').textContent = Math.random() > 0.5 ? 'ON' : 'OFF';
+            
+            const skins = [156, 890, 657, 90, 667, 465, 110];
+            document.getElementById('skin').textContent = skins[Math.floor(Math.random() * skins.length)];
+            
+            document.getElementById('owner').textContent = Math.random() > 0.5 ? 'ON' : 'OFF';
+            document.getElementById('verifikasi').textContent = Math.random() > 0.5 ? 'ON' : 'OFF';
+            
+            document.getElementById('result').style.display = 'block';
+        }
+        
+        function copyResult() {
+            const resultText = `EMAIL:PASSWORD: ${document.getElementById('email-pass').textContent}
+STATUS: ${document.getElementById('status').textContent}
+V2L: ${document.getElementById('v2l-status').textContent}
+SKIN: ${document.getElementById('skin').textContent}
+OWNER: ${document.getElementById('owner').textContent}
+VERIFIKASI PERANGKAT: ${document.getElementById('verifikasi').textContent}`;
+            
+            navigator.clipboard.writeText(resultText)
+                .then(() => alert('Hasil berhasil disalin!'))
+                .catch(err => console.error('Gagal menyalin: ', err));
+        }
+        
+        function jebolV2L() {
+            const account = document.getElementById('v2l-account').value;
+            if (!account) {
+                alert('ISI EMAIL:PW DLU BANG');
+                return;
+            }
+            
+            const progressContainer = document.getElementById('progress-container');
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            
+            progressContainer.style.display = 'block';
+            
+            const percentages = [10, 20, 40, 60, 80, 100];
+            const messages = [
+                "PROSES BANG",
+                "LAGI USAHA BANG",
+                "HAMPIR JEBOl BANG",
+                "SEDIKIT LAGI TEMBUS BANG",
+                "SEDIKIT LAGI SELESAI BANG",
+                "SUDAH JEBOl BANG 😈"
+            ];
+            
+            let current = 0;
+            
+            const process = setInterval(() => {
+                if (current >= percentages.length) {
+                    clearInterval(process);
+                    
+                    // Show final result
+                    document.getElementById('v2l-result').style.display = 'block';
+                    document.getElementById('v2l-result-status').textContent = 'OFF';
+                    
+                    const ownerResults = ['OFF 7 HARI', 'OFF 1 HARI', 'OFF 1 BULAN', 'OFF 1 TAHUN', 'OFF 1 MINGGU'];
+                    document.getElementById('owner-result').textContent = ownerResults[Math.floor(Math.random() * ownerResults.length)];
+                    
+                    const resultSkins = [234, 568, 998, 762, 110, 50, 986, 300, 762, 10, 525, 871, 123, 432];
+                    document.getElementById('skin-result').textContent = resultSkins[Math.floor(Math.random() * resultSkins.length)];
+                    
+                    return;
+                }
+                
+                const percent = percentages[current];
+                progressFill.style.width = percent + '%';
+                progressText.textContent = `${percent}% = ${messages[current]}`;
+                
+                current++;
+            }, 1000);
+        }
+    </script>
+</body>
+  </html>
